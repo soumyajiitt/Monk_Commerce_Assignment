@@ -78,6 +78,13 @@ export const VariantItem: React.FC<VariantItemProps> = ({
               className="w-20 rounded-full" 
               value={variant.discount?.value || ""}
               onChange={(e) => handleDiscountChange(e.target.value)}
+              onKeyDown={(e) => {
+                const allowedKeys = ['Backspace', 'Delete', 'Tab', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', '.'];
+                if (allowedKeys.includes(e.key)) return;
+                if (/^[0-9]$/.test(e.key)) return;
+                e.preventDefault();
+              }}
+              min="0"
             />
             <Select 
               value={variant.discount?.type || "percentage"}
