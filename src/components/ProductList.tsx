@@ -63,7 +63,6 @@ export const ProductList: React.FC = () => {
   };
 
   const handleAddEmptyProduct = () => {
-    if (selectedProducts.length >= 4) return;
     setSelectedProducts([...selectedProducts, { 
       id: Date.now(), 
       title: "", 
@@ -126,7 +125,7 @@ export const ProductList: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto py-10 px-4">
-      <h1 className="text-xl font-bold mb-8">Add Bundle Product (Max. 4 Products)</h1>
+      <h1 className="text-xl font-bold mb-8">Add Products</h1>
       <div className="flex items-center gap-2 mb-4">
         <TriangleAlert className="text-yellow-500 w-5 h-5"/>
         <p className="text-sm text-gray-500">Offer Bundle will be shown to the customer whenever any of the bundle products are added to the cart. </p>
@@ -181,7 +180,6 @@ export const ProductList: React.FC = () => {
           size="lg" 
           className="border-2 border-[#008060] text-[#008060] hover:bg-[#008060] hover:text-white px-10 font-bold"
           onClick={handleAddEmptyProduct}
-          disabled={selectedProducts.length >= 4}
         >
           Add Product
         </Button>
@@ -213,8 +211,7 @@ export const ProductList: React.FC = () => {
         isOpen={pickerOpen}
         onClose={() => setPickerOpen(false)}
         onAdd={handleAddProductsFromPicker}
-        initialSelection={activeEditingId ? selectedProducts.filter((p: SelectedProduct) => p.id === activeEditingId && p.title !== "") : []}
-        maxSelection={4 - (selectedProducts.length - (activeEditingId ? 1 : 0))}
+        initialSelection={[]}
         disabledProductIds={selectedProducts
           .map((p) => p.id)
           .filter((id) => id !== activeEditingId)
